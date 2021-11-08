@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Titan.Core\Titan.Core.csproj" />
+    <ProjectReference Include="..\Titan.DAL\Titan.DAL.csproj" />
+  </ItemGroup>
+
+</Project>
