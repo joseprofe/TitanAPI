@@ -9,6 +9,7 @@ namespace Titan.DAL.Entities
     public partial class pitufoContext : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Provincia> Provincias { get; set; }
 
         public pitufoContext()
         {
