@@ -15,9 +15,9 @@ namespace Titan.DAL.Repositories.Implementations
         {
             this._context = context;
         }
-        public bool Login(Usuario usuario)
+        public Usuario Login(Usuario usuario)
         {
-            return _context.Usuarios.Any(u => u.Email == usuario.Email && u.Password == usuario.Password);
+            return _context.Usuarios.FirstOrDefault(u => u.Email == usuario.Email && u.Password == usuario.Password);
         }
 
         public Usuario Create(Usuario usuario)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,11 @@ namespace Titan.API.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public ActionResult Login(UsuarioDTO usuarioDTO)
+        public ActionResult<UsuarioDTO> Login(UsuarioDTO usuarioDTO)
         {
-            if (usuarioBL.Login(usuarioDTO))
-                return Ok();
+            UsuarioDTO usuario;
+            if ((usuario = usuarioBL.Login(usuarioDTO)) != null)
+                return Ok(usuario);
             else 
                 return Unauthorized();
         }

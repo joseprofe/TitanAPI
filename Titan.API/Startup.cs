@@ -35,14 +35,16 @@ namespace Titan.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             //Para habilitar CORS en nuestra API
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
+            services.AddCors(o => {
+                o.AddPolicy("AllowSetOrigins", options =>
+                {
+                    options.WithOrigins("http://localhost:8080");
+                    options.AllowAnyHeader();
+                    options.AllowAnyMethod();
+                    options.AllowCredentials();
+                });
             });
 
             AddSwagger(services);
@@ -62,6 +64,8 @@ namespace Titan.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            app.UseCors("AllowSetOrigins");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -77,8 +81,6 @@ namespace Titan.API
             });
 
             app.UseRouting();
-
-            app.UseCors();
 
             app.UseAuthorization();
 

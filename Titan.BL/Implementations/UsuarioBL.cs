@@ -22,11 +22,15 @@ namespace Titan.BL.Implementations
             this.passwordGenerator = passwordGenerator;
             this.mapper = mapper;
         }
-        public bool Login(UsuarioDTO usuarioDTO)
+
+        public UsuarioDTO Login(UsuarioDTO usuarioDTO)
         {
             usuarioDTO.Password = passwordGenerator.Hash(usuarioDTO.Password);
             var usuario = mapper.Map<UsuarioDTO, Usuario>(usuarioDTO);
-            return usuarioRepository.Login(usuario);
+            usuarioDTO = mapper.Map<Usuario, UsuarioDTO>(usuarioRepository.Login(usuario));
+            if(usuarioDTO != null)
+                usuarioDTO.Password = null;
+            return usuarioDTO;
         }
 
         public UsuarioDTO Create(UsuarioDTO usuarioDTO)

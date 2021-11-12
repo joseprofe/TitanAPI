@@ -7,7 +7,7 @@ namespace Titan.BL.Contracts
 {
     public interface IUsuarioBL
     {
-        bool Login(UsuarioDTO usuarioDTO);
+        UsuarioDTO Login(UsuarioDTO usuarioDTO);
         UsuarioDTO Create(UsuarioDTO usuarioDTO);
     }
 }
