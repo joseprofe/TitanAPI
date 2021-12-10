@@ -23,10 +23,10 @@ namespace Titan.API.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public ActionResult<UsuarioDTO> Login(UsuarioDTO usuarioDTO)
+        public ActionResult<UsuarioDTO> Login(LoginDTO loginDTO)
         {
             UsuarioDTO usuario;
-            if ((usuario = usuarioBL.Login(usuarioDTO)) != null)
+            if ((usuario = usuarioBL.Login(loginDTO)) != null)
                 return Ok(usuario);
             else 
                 return Unauthorized();
