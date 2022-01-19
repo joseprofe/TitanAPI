@@ -27,7 +27,7 @@ namespace Titan.Core.Security
             {
                 new Claim("Id",usuario.Id.ToString()),
                 new Claim("Email", usuario.Email),
-                new Claim("Random", new Guid().ToString())
+                new Claim("Random", Guid.NewGuid().ToString())
             };
 
             var token = new JwtSecurityToken(

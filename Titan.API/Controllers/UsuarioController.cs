@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ namespace Titan.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class UsuarioController : ControllerBase
     {
         public IUsuarioBL usuarioBL { get; set; }
@@ -27,7 +29,11 @@ namespace Titan.API.Controllers
         {
             UsuarioDTO usuario;
             if ((usuario = usuarioBL.Login(loginDTO)) != null)
+            {
+                Response.Headers.Add("Authorization", usuario.Token);
+                usuario.Token = null;
                 return Ok(usuario);
+            }
             else 
                 return Unauthorized();
         }

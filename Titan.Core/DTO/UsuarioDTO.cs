@@ -12,5 +12,6 @@ namespace Titan.Core.DTO
         public string Username { get; set; }
         public int ProvinciaId { get; set; }
         public ProvinciaDTO Provincia { get; set; }
+        public string Token { get; set; }
     }
 }

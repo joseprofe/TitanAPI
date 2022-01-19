@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Titan.BL.Contracts;
 using Titan.BL.Implementations;
 using Titan.Core.AutomapperProfiles;
+using Titan.Core.Email;
 using Titan.Core.Security;
 using Titan.DAL.Entities;
 using Titan.DAL.Repositories.Contracts;
@@ -41,6 +42,7 @@ namespace Titan.API
             services.AddControllers();
 
             //Para habilitar CORS en nuestra API
+            string[] exposedHeaders = { "Authorization" }; 
             services.AddCors(o => {
                 o.AddPolicy("AllowSetOrigins", options =>
                 {
@@ -48,7 +50,8 @@ namespace Titan.API
                     options.AllowAnyHeader();
                     options.AllowAnyMethod();
                     options.AllowCredentials();
-                });
+                    options.WithExposedHeaders(exposedHeaders);
+                });                
             });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -90,6 +93,7 @@ namespace Titan.API
             services.AddScoped<IProvinciaBL, ProvinciaBL>();
             services.AddScoped<IProvinciaRepository, ProvinciaRepository>();
             services.AddScoped<IJwtBearer, JwtBearer>();
+            services.AddScoped<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

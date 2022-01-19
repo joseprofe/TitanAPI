@@ -13,7 +13,7 @@ namespace Titan.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    [AllowAnonymous]
+    [Authorize]
     public class ProvinciaController : ControllerBase
     {
         public IProvinciaBL provinciaBL { get; set; }
@@ -35,6 +35,7 @@ namespace Titan.API.Controllers
             return Ok(provinciaBL.GetAll());
         }
 
+        [Authorize]
         [HttpPost]
         [Route("Filter")]
         public ActionResult<List<ProvinciaDTO>> Filter(ProvinciaCriteriaDTO criteriaDTO)
